@@ -500,7 +500,7 @@ func (bs *BaseService) ImportData(data *model.PushData) error {
 	}
 
 	// Version update once
-	if len(data.Bases) > 0 {
+	if len(data.Bases) > 0 || len(data.Confs) > 0 {
 		newVersion, err := bs.serverService.GetAndIncrementVersion(data.App)
 		if err != nil {
 			return err
