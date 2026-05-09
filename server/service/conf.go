@@ -114,7 +114,8 @@ func (cs *ConfService) addSon(editNode *model.IceEditNode) (*model.EditConfRespo
 	if err := cs.updateConf(operateConf, iceId); err != nil {
 		return nil, err
 	}
-	return &model.EditConfResponse{NodeId: createConf.GetMixId()}, nil
+	nodes := cs.assembleMultiplexNodes(app, iceId, editNode.Lane, []int64{createConf.GetMixId()})
+	return &model.EditConfResponse{NodeId: createConf.GetMixId(), Nodes: nodes}, nil
 }
 
 func (cs *ConfService) edit(editNode *model.IceEditNode) (*model.EditConfResponse, error) {
@@ -249,7 +250,8 @@ func (cs *ConfService) addForward(editNode *model.IceEditNode) (*model.EditConfR
 	if err := cs.updateConf(operateConf, iceId); err != nil {
 		return nil, err
 	}
-	return &model.EditConfResponse{NodeId: createConf.GetMixId()}, nil
+	nodes := cs.assembleMultiplexNodes(app, iceId, editNode.Lane, []int64{createConf.GetMixId()})
+	return &model.EditConfResponse{NodeId: createConf.GetMixId(), Nodes: nodes}, nil
 }
 
 func (cs *ConfService) exchange(editNode *model.IceEditNode) (*model.EditConfResponse, error) {
